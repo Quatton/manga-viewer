@@ -25,6 +25,17 @@ export type PageImage = {
   file: string
 }
 
+
+/**
+ * This is a very simple implementation of a useFetch hook that can handle loading, error, and timeout.
+ * Casting data as `T | null` here is not ideal because it is misleading to the compiler, but it does help
+ * with quick development. It stills lack `refresh` but if we were to go deeper with this, let's just use a library.
+ * 
+ * @param path The path after the base url (this is fixed)
+ * @param key (optional) Not actually key but a reactive element that can be used to change the path (i don't think i like my solution here)
+ * @param when (optional) A function that returns a boolean to determine if the fetch should be made, this is to prevent initial fetches when no chapter is selected
+ * @returns 
+ */
 export function useFetch<T, D = any>(path: string | ((ref: Ref<D>) => string), key?: Ref<D>, when: (ref: Ref<D>) => boolean = () => true) {
   const data = ref<T | null>(null)
   const error = ref<Error | null>(null)

@@ -1,33 +1,15 @@
 # manga-viewer
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is created for the selection process of Summer Internship Program at Mantra.
+It is intended to be as dependency-free as possible, although the developer experience could be drastically improved by 
+(but not limited to) using:
 
-## Recommended IDE Setup
+- TailwindCSS
+- Nuxt.js (or with router and better data fetching utilities like a real `useFetch` or `useAsyncData`)
+  - Deduplication and caching
+  - Prefetching
+  - Better error handling & pending states
+  - Refreshing & abort signals
+- Everything is being handled in `App.vue` with children components emitting events. This is not very ideal and could be improved by using a more robust state management solution.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-bun install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-bun dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-bun build
-```
+Other details will be included in the comments.
