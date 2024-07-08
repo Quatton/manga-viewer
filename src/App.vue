@@ -20,6 +20,12 @@ watch(currentBook, (v) => {
   matchingBook.value = books.value.find((book) => book.id === v) ?? null;
   if (!matchingBook.value) {
     currentBook.value = books.value[0].id;
+    currentChapter.value = books.value[0].chapter_ids[0];
+    return;
+  }
+
+  if (currentChapter.value < matchingBook.value.chapter_ids[0]) {
+    currentChapter.value = matchingBook.value.chapter_ids[0];
     return;
   }
 
