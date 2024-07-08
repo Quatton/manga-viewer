@@ -20,11 +20,26 @@ watch(currentBook, (v) => {
   matchingBook.value = books.value.find((book) => book.id === v) ?? null;
   if (!matchingBook.value) {
     currentBook.value = books.value[0].id;
+    return;
+  }
+
+})
+
+watch(currentChapter, (v) => {
+  if (!matchingBook.value) {
     currentChapter.value = 0;
     return;
   }
 
-  currentChapter.value = matchingBook.value.chapter_ids[0];
+  if (v < matchingBook.value.chapter_ids[0]) {
+    currentChapter.value = matchingBook.value.chapter_ids[0];
+    return;
+  }
+
+  if (v > matchingBook.value.chapter_ids[matchingBook.value.chapter_ids.length - 1]) {
+    currentChapter.value = matchingBook.value.chapter_ids[matchingBook.value.chapter_ids.length - 1];
+    return;
+  }
 })
 
 const { data: chapters, error: chaptersError } = useFetch<Chapter>((currentChapter) => `/chapters/${currentChapter.value}`, currentChapter, (currentChapter) => currentChapter.value !== 0);
@@ -39,12 +54,14 @@ const { data: chapters, error: chaptersError } = useFetch<Chapter>((currentChapt
   </header>
 
   <main>
-    <template v-if="chapters && chapters.pages.length > 0">
+    <template v-if="matchingBook && chapters && chapters.pages.length > 0">
       <template v-for="(page, idx) in chapters.pages">
         <div class="page" v-if="idx === currentPage" :key="page.id">
           <img :src="page.image.file" :alt="`Page ${page.id}, Image ID ${page.image.id}`" class="image" />
-          <div class="absolute right"
-            @click="currentPage < chapters.pages.length - 1 ? currentPage++ : currentPage = chapters.pages.length - 1">
+          <div class="absolute right" @click="currentPage < chapters.pages.length - 1 ? currentPage++ :
+            currentChapter < matchingBook.chapter_ids[matchingBook.chapter_ids.length - 1] ?
+              currentChapter++ && (currentPage = 0) : null
+            ">
 
           </div>
           <div class="absolute left" @click="currentPage > 0 ? currentPage-- : currentPage = 0">
