@@ -1,18 +1,30 @@
-@import './base.css';
+@import "./base.css";
 
 #app {
   max-width: 1280px;
+  max-height: 100vh;
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  max-height: 100vh;
+}
+
+main {
+  min-height: 0;
 }
 
 a,
 .green {
   text-decoration: none;
+  cursor: pointer;
   color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+  transition: 0.1s;
+  padding: 0.5rem 1rem;
 }
 
 @media (hover: hover) {
@@ -20,7 +32,7 @@ a,
     background-color: hsla(160, 100%, 37%, 0.2);
   }
 }
-
+/* 
 @media (min-width: 1024px) {
   body {
     display: flex;
@@ -32,4 +44,4 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
-}
+} */
