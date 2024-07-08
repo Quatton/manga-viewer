@@ -11,11 +11,12 @@ defineProps<{
 
 <template>
   <div class="chapter-nav">
-    <button v-for="chapter in book.chapter_ids" @click="() => $emit('update:chapter', chapter)" :key="chapter" :class="{
-      selected
-        : currentChapter === chapter
-    }">
-      {{ chapter }}
+    <button v-for="(chapter, idx) in book.chapter_ids" @click="() => $emit('update:chapter', chapter)" :key="chapter"
+      :class="{
+        selected
+          : currentChapter === chapter
+      }">
+      {{ idx + 1 }}
     </button>
   </div>
 </template>

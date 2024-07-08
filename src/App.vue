@@ -52,10 +52,15 @@ const { data: chapters, error: chaptersError } = useFetch<Chapter>((currentChapt
           </div>
         </div>
       </template>
+
+      <p class="page-num">
+        {{ currentPage + 1 }} / {{ chapters.pages.length }}
+      </p>
     </template>
     <template v-else>
       <p v-if="chaptersError">{{ chaptersError.message }}</p>
     </template>
+
   </main>
 </template>
 
@@ -94,5 +99,9 @@ header {
 .right {
   right: 0;
   background-color: blue / 0.5;
+}
+
+.page-num {
+  text-align: center;
 }
 </style>
