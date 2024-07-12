@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 const props = defineProps<{
   max: number,
@@ -12,9 +12,12 @@ const pos = ref(0);
 const barRef = ref(null);
 const dragging = ref(false)
 
-
 function handleDrag(e: MouseEvent) {
   if (!dragging.value) return;
+  handleClick(e);
+}
+
+function handleClick(e: MouseEvent) {
   const { clientWidth } = (barRef.value as unknown as HTMLDivElement)
   const clientLeft = (barRef.value as unknown as HTMLDivElement).getBoundingClientRect().left;
 
@@ -23,7 +26,11 @@ function handleDrag(e: MouseEvent) {
   if (pos.value > 100) pos.value = 100;
 
   model.value = Math.round(pos.value * (props.max - 1) / 100);
-}
+};
+
+watch(model, (v) => {
+  pos.value = Math.round((v! / (props.max - 1)) * 100);
+})
 
 function handleDragEnd() {
   dragging.value = false;
@@ -41,7 +48,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="bar" id="bar" ref="barRef">
+  <div class="bar" id="bar" ref="barRef" @mousedown="handleClick">
     <div class="ball" @mousedown="dragging = true" :style="{ left: `calc(${pos}% - 0.625rem)` }">
 
     </div>

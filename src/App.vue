@@ -19,16 +19,13 @@ watch(currentBook, (v) => {
   }
 
   matchingBook.value = books.value.find((book) => book.id === v) ?? null;
-  if (!matchingBook.value) {
+  if (matchingBook.value == null) {
     currentBook.value = books.value[0].id;
     currentChapter.value = books.value[0].chapter_ids[0];
     return;
   }
 
-  if (currentChapter.value < matchingBook.value.chapter_ids[0]) {
-    currentChapter.value = matchingBook.value.chapter_ids[0];
-    return;
-  }
+  currentChapter.value = matchingBook.value.chapter_ids[0];
 
 })
 
@@ -36,7 +33,7 @@ watch(currentChapter, (v) => {
 
   currentPage.value = 0;
 
-  if (!matchingBook.value) {
+  if (matchingBook.value == null) {
     currentChapter.value = 0;
     return;
   }
@@ -102,7 +99,6 @@ const { data: chapters, error: chaptersError } = useFetch<Chapter>((currentChapt
 <style scoped>
 main {
   display: flex;
-  flex-direction: column;
   justify-items: center;
   flex: 1;
 }
@@ -116,6 +112,8 @@ main {
 }
 
 .book-view {
+  margin: 0 auto;
+  max-width: 48rem;
   display: flex;
   flex-direction: column;
   justify-items: center;
